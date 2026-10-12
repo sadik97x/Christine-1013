@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Christineeee💝💝</title> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="file/jscex.min.js"></script>
+    <script type="text/javascript" src="file/jscex-parser.js"></script>
+    <script type="text/javascript" src="file/jscex-jit.js"></script>
+    <script type="text/javascript" src="file/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="file/jscex-async.min.js"></script>
+    <script type="text/javascript" src="file/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="file/love.js" charset="utf-8"></script>
+
+    <style>
+        :root {
+    --primary-pink: #ff85a1;
+    --deep-pink: #ff5d8f;
+    --soft-bg: radial-gradient(circle, #ffffff 0%, #ffe3ec 100%);
+    --text-color: #5d414d;
+}
+
+#photo-row { display:none; margin-top:25px; gap:10px; flex-wrap:wrap; justify-content:center; }
+#photo-row img { width:calc(50% - 5px); aspect-ratio:3/4; object-fit:cover; object-position:center 35%;
+                 border-radius:16px; opacity:0; transform:translateY(12px); transition:1.2s ease; }
+#photo-row img:first-child { width:100%; aspect-ratio:4/3; object-position:center; }
+#photo-row img.show { opacity:1; transform:none; }
+
+        body {
+            background: var(--soft-bg) !important;
+            font-family: 'Poppins', sans-serif !important;
+            margin: 0; padding: 0; overflow: hidden;
+            width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* --- Lock Screen & Star Story --- */
+        #lock-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 20px; box-sizing: border-box; transition: 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .star-story { max-width: 650px; color: #e0e0e0; line-height: 1.8; }
+        
+        .star-title-container { position: relative; display: inline-block; margin-bottom: 40px; }
+        .star-title { 
+            font-family: 'Dancing Script', cursive; font-size: 42px; color: var(--primary-pink); 
+            position: relative; z-index: 2; text-shadow: 0 0 15px rgba(255,133,161,0.5);
+        }
+        .shimmer-star {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100px; height: 100px; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            border-radius: 50%; animation: pulse-star 4s infinite ease-in-out; z-index: 1;
+        }
+
+        .story-line { opacity: 0; transform: translateY(15px); transition: 1.5s ease; margin-bottom: 15px; font-size: 18px; font-weight: 300; }
+        .story-line.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- Main UI --- */
+        #wrap { position: relative; width: 1100px; height: 680px; flex-shrink: 0; transform-origin: center center; display: none; }
+        #text { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); width: 480px; z-index: 999; }
+        
+        #code { 
+            display: none; font-size: 16px; color: var(--text-color); line-height: 1.7; 
+            background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); 
+            padding: 35px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2); max-height: 550px; overflow-y: auto;
+        }
+
+        .highlight-dancing { font-family: 'Dancing Script', cursive; font-size: 26px; color: var(--deep-pink); font-weight: bold; }
+        .highlight-word { color: var(--deep-pink); font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+        #special-wish-container { 
+            margin-top: 25px; border-top: 1px dashed rgba(255, 133, 161, 0.3); padding-top: 25px; 
+            display: none; font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--text-color);
+            font-weight: 500; /* Made slightly bolder as requested */
+        }
+
+        #clock-box { 
+            position: absolute; right: 20px; bottom: 20px; display: none; 
+            color: #a3808f; font-size: 14px; background: rgba(255, 255, 255, 0.8); 
+            padding: 10px 25px; border-radius: 50px; z-index: 1000;
+        }
+
+        .btn-main {
+            padding: 12px 40px; background: var(--primary-pink); color: white;
+            border: none; border-radius: 30px; cursor: pointer; font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 133, 161, 0.4); transition: 0.3s;
+            font-size: 15px; margin-top: 10px;
+        }
+        .btn-main:hover { background: var(--deep-pink); transform: scale(1.05); }
+
+        /* --- Final Popup --- */
+        #popup-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 19999;
+        }
+        #final-popup {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
+            width: 320px; background: white; padding: 40px; border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); z-index: 20000; text-align: center; border: 1px solid var(--primary-pink);
+            opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #final-popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--deep-pink); margin-left: 3px; vertical-align: middle; animation: blink 0.8s infinite; }
+        
+        /* Final Polish Effects */
+        .russian-final { 
+            text-shadow: 0 0 10px rgba(255, 93, 143, 0); 
+            transition: text-shadow 2s ease;
+        }
+        .russian-final.glow {
+            text-shadow: 0 0 12px rgba(255, 93, 143, 0.5);
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes pulse-star { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } 50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.6; } }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KZN7NN5FVR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KZN7NN5FVR');
+</script>
+   <link rel="stylesheet" href="premium.css">
+      <link rel="stylesheet" href="scrapbook.css">
+</head>
+<body>
+    <audio id="myAudio" loop="loop"><source src="aud.mp3" type="audio/mp3" /></audio>
+
+    <div id="lock-screen">
+        <div class="star-story">
+            <div class="star-title-container">
+                <div class="shimmer-star"></div>
+                <div class="star-title">The Beginning of a Star</div>
+            </div>
+            <div class="story-line">On a warm middle of a day in Indonesia,</div>
+            <div class="story-line">a new star appeared in the sky.</div>
+            <div class="story-line">Quiet and steady, full of warmth and curiosity.</div>
+            <div class="story-line"><b>October 13th, 2003.</b></div>
+            <div class="story-line">The day you arrived.</div>
+            <div class="story-line">Today, that light turns <b>23</b></div>
+            <div class="story-line" style="margin-top: 20px;">
+                <button class="btn-main" onclick="startExperience()">Enter Her World✨ (click)</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-overlay"></div>
+    <div id="final-popup">
+        <div style="font-size: 50px; margin-bottom: 10px;">🌸</div>
+        <h3 class="highlight-dancing" style="font-size: 30px; margin: 10px 0;">One last thing...</h3>
+        <p style="color: #5d414d; font-size: 16px; line-height: 1.5;">I love you more than words can type.<br><span class="highlight-word">Happy 23rd Birthday, Christinee!</span><br>Celebrate the day with the biggest smile.<br> <span class="highlight-word">Today is all Yours!!!</span></p>
+        <button class="btn-main" onclick="closePopup()">Close</button>
+    </div>
+
+    <div id="main">
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                    <div id="typewriter-base">
+                        <span class="say"><span class="highlight-dancing">Happy 23rd Birthday, Christineee!</span> 🎈</span><br>
+                        <span class="say">As you turn 23, I wish for you a future</span>
+                        <span class="say">as boundless as your potential. 🍀</span><br><br>
+                        <span class="say">May you find success in every path you walk,</span>
+                        <span class="say">and may your hard work always <span class="highlight-word">bloom</span>.</span><br>
+                        <span class="say">I wish you the courage to trust your wisdom,</span>
+                        <span class="say">and the clarity to see your unique value. ✨</span><br>
+                        <span class="say">Your Sadik is always with you in every moment🥺,</span><br>
+                        <span class="say">Though youre so tall but you're my little cutie most beautiful <span class="highlight-word">babyy</span><br>
+                        <span class="say">Know that Sadik is <span class="highlight-word">always</span> with you, supporting you in every step, <span class="highlight-word">always.</span><br><br>
+                        <span class="say">Keep shining, stronger than ever <span class="highlight-dancing">Cintakuu</span> ❤️😘</span>
+                    </div>
+                    
+                    <button id="surprise-btn" class="btn-main" style="display:none; margin-top:20px;" onclick="openSecret()">For the girl who wanna kill me✨ (click babe)</button>
+                    
+                    <div id="special-wish-container">
+                        <div id="secret-typing-area"></div>
+                        <div id="photo-row">
+    <img src="photos/sky.jpg" alt="">
+    <img src="photos/trees.jpg" alt="">
+    <img src="photos/flowers.jpg" alt="">
+    <img src="photos/funny.jpg" alt="">
+    <img src="photos/night.jpg" alt="">
+</div>
+                    </div>
+                </div>
+            </div>
+            <div id="clock-box">
+                <span><b>Our story so far...💝</b></span>
+                <div id="clock"></div>
+            </div>
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let lines = $(".story-line");
+            lines.each(function(i) {
+                setTimeout(() => { $(this).addClass("visible"); }, i * 1800 + 500);
+            });
+        });
+
+        function startExperience() {
+            var audio = document.getElementById("myAudio");
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio play deferred"));
+            $("#lock-screen").css({"opacity": "0", "pointer-events": "none"});
+            setTimeout(() => {
+                $("#lock-screen").hide();
+                $("#wrap").fadeIn(1500);
+                runAsync().start();
+                startSparkles();
+            }, 1500);
+        }
+
+        const secretContent = `
+<div class="secret-letter">
+
+    <span class="highlight-dancing">Hey little Babyy😽😽😽,</span><br><br>
+
+    When we went to Altai, I never imagined that little trip would be the beginning of so many memories with you.<br>
+    At first things between us were so difficult. We fought over the smallest things, and I never imagined we would come this far together.<br><br>
+
+    Then Natalia called us for a meeting, and we were all eating together.<br>
+    You quietly grabbed my hand under the table. 🥹<br>
+    Maybe you didn't realize how much that moment meant to me.<br><br>
+
+    And then there was the day we fought so much that you blocked me and deleted our entire chat.<br>
+    It was already 12 or 1 at night, but I couldn't just go to sleep. So I came to your building, went up to the second floor, and saw you sitting outside, looking so sad.<br><br>
+
+    I asked,<br>
+    <span class="highlight-word">"What are you doing here right now?"</span><br>
+    And you said softly,<br>
+    <span class="highlight-word">"Waiting for you."</span><br><br>
+
+    Christine, after all that fighting, you were still there.<br>
+    I don't think you understand how deeply that touched me.<br><br>
+
+    And then came <span class="highlight-word">July 19th</span>.<br>
+    Little by little, we started understanding each other better. 🫶<br><br>
+
+    I love how you care for me when I'm sick. You buy me food, you buy me medicine, you worry about me.<br>
+    I love how childish you can be, your little baby face, and those tiny expressions you make without even realizing it.<br><br>
+
+    Even a whole day with you never feels like enough.<br>
+    And the hardest part is leaving you: the way you hug me, almost cry, and say<br>
+    <span class="highlight-word">"No, no, no…"</span><br>
+    I love hearing that. It makes leaving so hard, and it makes me want to stay forever. 🫂<br><br>
+
+    Our story hasn't been perfect. But after all the chaos, we still find our way back to each other.<br>
+    If I could keep only one thing from all of it, it would be<br>
+    <span class="highlight-word">the feeling of finding my way back to you.</span><br><br>
+
+    I love you so much.<br>
+    And even when you say <span class="highlight-word">"No, no, no"</span>, I'm still going to love that little voice of yours. ❤️<br><br>
+
+    <span id="russian-special" style="
+        border-left: 3px solid var(--primary-pink);
+        padding: 18px 0 18px 18px;
+        display: block;
+        margin-top: 18px;
+        background: linear-gradient(90deg, rgba(255,105,180,0.08), rgba(255,182,193,0.03), transparent);
+        border-radius: 0 14px 14px 0;
+    ">
+        <span class="highlight-word russian-final" style="font-size: 19px;">
+            Sini, peluk aku. Kamu aman bersamaku.
+            Aku di sini, selalu.
+            Kamu rumahku…
+        </span><br>
+        <span class="highlight-word russian-final" style="font-size: 19px;">
+        </span><br>
+        <span class="highlight-dancing russian-final" id="joy-text" style="
+            font-size: 34px;
+            display: block;
+            margin-top: 12px;
+            text-shadow: 0 2px 12px rgba(255,105,180,0.25);
+        ">
+            Дорогая моя…❤️
+        </span>
+    </span>
+
+</div>
+`;
+        window.openSecret = function() {
+            $("#surprise-btn").fadeOut(300);
+            $("#special-wish-container").show();
+            $("#secret-typing-area").humanTypewriter(secretContent);
+            triggerHearts(35);
+        };
+
+        function triggerHearts(count) {
+            for(let i=0; i<count; i++){
+                setTimeout(() => {
+                    const heart = $('<div style="position:fixed;top:50%;left:50%;font-size:24px;z-index:10000;pointer-events:none;">❤️</div>');
+                    $('body').append(heart);
+                    heart.animate({
+                        top: (Math.random()*70 + 15)+'%', 
+                        left: (Math.random()*70 + 15)+'%', 
+                        opacity: 0
+                    }, 4000, function() { $(this).remove(); });
+                }, i*120);
+            }
+        }
+
+        function closePopup() {
+            $("#final-popup").removeClass("show");
+            setTimeout(() => { $("#final-popup, #popup-overlay").fadeOut(); }, 500);
+        }
+
+        (function($) {
+            $.fn.humanTypewriter = function(str) {
+                var $ele = $(this), progress = 0;
+                $ele.html('<span class="content-holder"></span><span class="cursor"></span>');
+                var $content = $ele.find('.content-holder');
+                var parentCode = document.getElementById('code');
+
+                function type() {
+                    if (progress < str.length) {
+                        var char = str.substr(progress, 1);
+                        if (char === '<') {
+                            progress = str.indexOf('>', progress) + 1;
+                        } else {
+                            progress++;
+                        }
+                        $content.html(str.substring(0, progress));
+                        parentCode.scrollTop = parentCode.scrollHeight;
+
+                        let delay = 35 + Math.random() * 45;
+                        if (char === '.' || char === '!' || char === '?' || char === '…') delay = 950;
+                        if (char === ',' || char === '—') delay = 550;
+                        
+                        if (progress > str.length - 120) delay += 40; // Intimate slow down
+                        if (str.substring(progress - 16, progress) === 'Waiting for you.') delay = 3200;
+                        if (str.substring(progress - 12, progress) === 'back to you.') delay = 2600;
+
+                        setTimeout(type, delay);
+                    } else {
+                        $ele.find('.cursor').fadeOut();
+                        // Special Russian Highlight Effect
+                        $(".russian-final").addClass("glow");
+                        triggerHearts(15);
+                        $("#photo-row").css("display","flex");
+$("#photo-row img").each(function(i){
+    var el = this;
+    setTimeout(function(){ $(el).addClass("show"); }, i * 900 + 600);
+});
+setTimeout(function(){ parentCode.scrollTop = parentCode.scrollHeight; }, 1200); 
+                        
+                        setTimeout(() => {
+                            $("#popup-overlay").fadeIn(800);
+                            $("#final-popup").show().addClass("show");
+                        }, 2800);
+                    }
+                }
+                type();
+            };
+
+            $.fn.typewriter = function() {
+                this.each(function() {
+                    var $ele = $(this), str = $ele.html(), progress = 0;
+                    $ele.html('').append('<span class="content-holder"></span><span class="cursor"></span>');
+                    var $content = $ele.find('.content-holder');
+                    var timer = setInterval(function() {
+                        var current = str.substr(progress, 1);
+                        if (current == '<') { progress = str.indexOf('>', progress) + 1; } else { progress++; }
+                        $content.html(str.substring(0, progress));
+                        document.getElementById('code').scrollTop = document.getElementById('code').scrollHeight;
+                        if (progress >= str.length) { 
+                            clearInterval(timer); 
+                            $ele.find('.cursor').fadeOut();
+                            $("#surprise-btn").fadeIn(1000); 
+                        }
+                    }, 65);
+                });
+                return this;
+            };
+        })(jQuery);
+
+        function timeElapse(date){
+            var current = new Date(), seconds = (Date.parse(current) - Date.parse(date)) / 1000;
+            var days = Math.floor(seconds / (3600 * 24));
+            seconds %= (3600 * 24);
+            var hours = Math.floor(seconds / 3600);
+            seconds %= 3600;
+            var minutes = Math.floor(seconds / 60);
+            seconds %= 60;
+            $("#clock").html("<span class=\"digit\">"+days+"</span> d <span class=\"digit\">"+hours+"</span> h <span class=\"digit\">"+minutes+"</span> m <span class=\"digit\">"+seconds+"</span> s");
+        }
+
+        function startSparkles() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const sparkles = [];
+            function createSparkle() {
+                return {
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.5,
+                    opacity: Math.random(),
+                    speed: Math.random() * 0.015 + 0.005
+                };
+            }
+            for(let i=0; i<15; i++) sparkles.push(createSparkle());
+            function draw() {
+                sparkles.forEach(s => {
+                    s.opacity -= s.speed;
+                    if(s.opacity <= 0) Object.assign(s, createSparkle());
+                    ctx.fillStyle = `rgba(255, 133, 161, ${s.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        (function(){
+    var togetherDate = new Date();
+    togetherDate.setFullYear(2026, 6, 19); // July 19, 2026
+    togetherDate.setHours(0);
+    togetherDate.setMinutes(0);
+    togetherDate.setSeconds(0);
+            var canvas = $('#canvas');
+            function autoScaleLayout() {
+                var width = window.innerWidth, height = window.innerHeight;
+                var scale = Math.min(width / 1100, height / 680) * 0.95;
+                $("#wrap").css("transform", "scale(" + scale + ")");
+            }
+            window.addEventListener('resize', autoScaleLayout); autoScaleLayout();
+
+            var tree = new Tree(canvas[0], 1100, 680, {
+                seed: { x: 530, color: "rgb(255, 133, 161)", scale: 2 },
+                branch: [[535, 680, 570, 250, 500, 200, 30, 100, [
+                    [540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]],
+                    [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]],
+                    [546, 397, 413, 247, 328, 244, 9, 80]
+                ]]],
+                bloom: { num: 700, width: 1080, height: 650 },
+                footer: { width: 1200, height: 5, speed: 10 }
+            });
+
+            window.runAsync = eval(Jscex.compile("async", function () {
+                $await(seedAnimate()); $await(growAnimate()); $await(flowAnimate()); $await(moveAnimate());
+                $("#code").fadeIn(1000);
+                $("#typewriter-base").typewriter();
+                $("#clock-box").fadeIn(1000);
+                setInterval(function () { timeElapse(togetherDate); }, 1000);
+            }));
+
+            var seed = tree.seed, foot = tree.footer;
+            var seedAnimate = eval(Jscex.compile("async", function () {
+                seed.draw(); $await(Jscex.Async.sleep(1000));
+                while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
+                while (seed.canMove()) { seed.move(0, 2); foot.draw(); $await(Jscex.Async.sleep(10)); }
+            }));
+            var growAnimate = eval(Jscex.compile("async", function () { do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow()); }));
+            var flowAnimate = eval(Jscex.compile("async", function () { do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower()); }));
+            var moveAnimate = eval(Jscex.compile("async", function () {
+                tree.snapshot("p1", 240, 0, 610, 680);
+                while (tree.move("p1", 500, 0)) { foot.draw(); $await(Jscex.Async.sleep(10)); }
+                foot.draw(); tree.snapshot("p2", 500, 0, 610, 680);
+            }));
+        })();
+    </script>
+       <script src="petals.js"></script>
+          <script src="cute.js"></script>
+             <script src="wall.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
